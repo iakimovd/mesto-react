@@ -36,6 +36,16 @@ function App() {
     setSelectedCard(null);
   }
 
+  React.useEffect(() => {
+    const handleClosePopup = (event) => {
+      if (event.key === 'Escape') {
+        closeAllPopups();
+      }
+    }
+    window.addEventListener('keydown', handleClosePopup)
+    return () => window.removeEventListener('keydown', handleClosePopup)
+  })
+
   return (
     <div className="page">
 
@@ -79,7 +89,9 @@ function App() {
                 name="name"
                 placeholder="Имя"
                 required
+                // @ts-ignore
                 minLength="7"
+                // @ts-ignore
                 maxLength="40"
               />
               <span className="popup__input-error" id="name-input-error"></span>
@@ -92,7 +104,9 @@ function App() {
                 name="job"
                 placeholder="Профессия"
                 required
+                // @ts-ignore
                 minLength="7"
+                // @ts-ignore
                 maxLength="200"
               />
               <span className="popup__input-error" id="job-input-error"></span>
@@ -112,7 +126,9 @@ function App() {
                 name="cardname"
                 placeholder="Название"
                 required
+                // @ts-ignore
                 minLength="2"
+                // @ts-ignore
                 maxLength="30"
               />
               <span className="popup__input-error" id="card-name-input-error"></span>

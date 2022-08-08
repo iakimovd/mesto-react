@@ -3,8 +3,8 @@ import React from 'react';
 export function PopupWithForm({ title, name, children, buttonName, isOpen, onClose }) {
 
   return (
-    <div className={`popup ${name}-popup ${isOpen ? "popup_opened" : ""}`}>
-      <div className="popup__container">
+    <div className={`popup ${name}-popup ${isOpen ? "popup_opened" : ""}`} onClick={onClose}>
+      <div className="popup__container" onClick={e => e.stopPropagation()}>
         <h3 className="popup__title">{title}</h3>
         <form className="popup__form" name="edit-profile-form" noValidate>
           {children}
@@ -14,4 +14,5 @@ export function PopupWithForm({ title, name, children, buttonName, isOpen, onClo
       </div>
     </div>
   )
+
 }
