@@ -96,4 +96,4 @@ const api = new Api({
   }
 });
 
-export { api };
+export default api;
