@@ -1,24 +1,10 @@
-import React, { useState } from "react";
-import api from "../utils/Api";
+import { CurrentUserContext } from "contexts/CurrentUserContext";
+import React from "react";
 import { Card } from "./Card";
 
-export function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
+export function Main({ cards, onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike, onCardDelete }) {
 
-  const [userName, setUserName] = useState('');
-  const [userDescription, setUserDescription] = useState('');
-  const [userAvatar, setUserAvatar] = useState('');
-  const [cards, setCards] = useState([]);
-
-  React.useEffect(() => {
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
-      .then(([userData, cards]) => {
-        setUserName(userData.name);
-        setUserDescription(userData.about);
-        setUserAvatar(userData.avatar);
-        setCards(cards);
-      })
-      .catch(err => { console.log(err) });
-  }, []);
+  const currentUser = React.useContext(CurrentUserContext);
 
   return (
     <main className="content">
@@ -26,14 +12,14 @@ export function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
       <section className="profile">
         <div className="profile__avatar-section">
           <img className="profile__avatar"
-            src={userAvatar}
+            src={currentUser?.avatar}
             alt="Аватар пользователя" />
           <button className="profile__avatar-edit-button" type="button" onClick={onEditAvatar} />
         </div>
         <div className="profile__info">
-          <h1 className="profile__name">{userName}</h1>
+          <h1 className="profile__name">{currentUser?.name}</h1>
           <button className="profile__edit-button" type="button" onClick={onEditProfile} />
-          <p className="profile__profession">{userDescription}</p>
+          <p className="profile__profession">{currentUser?.about}</p>
         </div>
         <button className="profile__add-button" type="button" onClick={onAddPlace} />
       </section>
@@ -42,7 +28,7 @@ export function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
         <ul className="elements">
           {cards.map((card) => {
             return (
-              <Card key={card._id} card={card} onCardClick={onCardClick} />
+              <Card key={card._id} card={card} onCardClick={onCardClick} onCardLike={onCardLike} onCardDelete={onCardDelete} />
             )
           }
           )}
