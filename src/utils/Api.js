@@ -52,22 +52,6 @@ export class Api {
       .then(this._returnFetchResult);
   }
 
-  // addCardLike(id) {
-  //   return fetch(`${this._url}/cards/likes/${id}`, {
-  //     method: 'PUT',
-  //     headers: this._headers
-  //   })
-  //     .then(this._returnFetchResult);
-  // }
-
-  // deleteCardLike(id) {
-  //   return fetch(`${this._url}/cards/likes/${id}`, {
-  //     method: 'DELETE',
-  //     headers: this._headers
-  //   })
-  //     .then(this._returnFetchResult);
-  // }
-
   changeLikeCardStatus(id, isLiked) {
     return fetch(`${this._url}/cards/likes/${id}`, {
       method: (isLiked ? "PUT" : "DELETE"),

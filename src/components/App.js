@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import '../index.css';
 import api from "../utils/Api";
@@ -19,7 +19,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [cards, setCards] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     api.getInitialCards()
       .then((cards) => {
         setCards(cards);
@@ -27,7 +27,7 @@ function App() {
       .catch(err => { console.log(err) });
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     api.getUserInfo()
       .then((userData) => {
         setCurrentUser(userData);
@@ -56,9 +56,11 @@ function App() {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-    });
+    api.changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+      })
+      .catch(err => { console.log(err) })
   }
 
   function handleCardDelete(card) {
@@ -105,7 +107,7 @@ function App() {
     setSelectedCard(null);
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleClosePopup = (event) => {
       if (event.key === 'Escape') {
         closeAllPopups();

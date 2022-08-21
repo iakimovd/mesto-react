@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PopupWithForm } from "./PopupWithForm";
 
 export function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
@@ -25,48 +25,48 @@ export function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
     setLink(e.target.value);
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     setName('');
     setLink('');
   }, [isOpen]);
 
   return (
-    <PopupWithForm title="Новое место" name="add-card" isOpen={isOpen} onClose={onClose} buttonName="Создать" onSubmit={handleSubmit}
-      children={
-        <>
-          <fieldset className="popup__inputs">
-            <input
-              className="popup__input popup__input_type_card-name"
-              id="card-name-input"
-              type="text"
-              name="cardname"
-              placeholder="Название"
-              required
-              // @ts-ignore
-              minLength="2"
-              // @ts-ignore
-              maxLength="30"
-              value={name}
-              onChange={handleNameAdd}
-            />
-            <span className="popup__input-error" id="card-name-input-error"></span>
-          </fieldset>
-          <fieldset className="popup__inputs">
-            <input
-              className="popup__input popup__input_type_link"
-              id="link-input"
-              type="url"
-              name="cardlink"
-              placeholder="Ссылка на картинку"
-              required
-              pattern="https://.*"
-              value={link}
-              onChange={handleLinkAdd}
-            />
-            <span className="popup__input-error" id="link-input-error"></span>
-          </fieldset>
-        </>
-      }
-    />
+    <PopupWithForm title="Новое место" name="add-card" isOpen={isOpen} onClose={onClose} buttonName="Создать" onSubmit={handleSubmit}>
+
+      <>
+        <fieldset className="popup__inputs">
+          <input
+            className="popup__input popup__input_type_card-name"
+            id="card-name-input"
+            type="text"
+            name="cardname"
+            placeholder="Название"
+            required
+            // @ts-ignore
+            minLength="2"
+            // @ts-ignore
+            maxLength="30"
+            value={name}
+            onChange={handleNameAdd}
+          />
+          <span className="popup__input-error" id="card-name-input-error"></span>
+        </fieldset>
+        <fieldset className="popup__inputs">
+          <input
+            className="popup__input popup__input_type_link"
+            id="link-input"
+            type="url"
+            name="cardlink"
+            placeholder="Ссылка на картинку"
+            required
+            pattern="https://.*"
+            value={link}
+            onChange={handleLinkAdd}
+          />
+          <span className="popup__input-error" id="link-input-error"></span>
+        </fieldset>
+      </>
+
+    </PopupWithForm>
   )
 }

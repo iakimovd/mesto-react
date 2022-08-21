@@ -1,4 +1,4 @@
-import React from 'react';
+import { createContext } from "react";
 
 // @ts-ignore
-export const CurrentUserContext = React.createContext();
+export const CurrentUserContext = createContext();
